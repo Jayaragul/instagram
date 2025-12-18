@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Instagram Carousel Slicer & Previewer - Split Panoramas Online | Made by NJR</title>
+    <meta name="description" content="Free online tool by NJR to split panoramic images into seamless Instagram carousel slides. Upload, preview swipe effect, and download slices instantly. Best Instagram grid maker.">
+    <meta name="keywords" content="instagram carousel splitter, panorama splitter, instagram swipe preview, seamless carousel, canva to instagram, image slicer, instagram grid maker, NJR tools, made by NJR, split panorama online free">
+    <meta name="author" content="NJR">
+    <link rel="canonical" href="https://example.com/instagram-splitter">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Instagram Carousel Slicer",
+      "url": "https://example.com/instagram-splitter",
+      "description": "A free online tool to split panoramic images into seamless Instagram carousel slides.",
+      "creator": {
+        "@type": "Person",
+        "name": "NJR"
+      },
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="NJR Tools">
+    <meta property="og:url" content="https://example.com/instagram-splitter">
+    <meta property="og:title" content="Instagram Carousel Slicer by NJR">
+    <meta property="og:description" content="Split your panoramas into seamless Instagram slides and preview the swipe effect. A free tool made by NJR.">
+    <meta property="og:image" content="https://example.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:creator" content="@NJR">
+    <meta property="twitter:url" content="https://example.com/instagram-splitter">
+    <meta property="twitter:title" content="Instagram Carousel Slicer by NJR">
+    <meta property="twitter:description" content="Split your panoramas into seamless Instagram slides. Made by NJR.">
+    <meta property="twitter:image" content="https://example.com/og-image.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Hide scrollbar for seamless look but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .snap-x-mandatory {
+            scroll-snap-type: x mandatory;
+        }
+        .snap-center {
+            scroll-snap-align: center;
+        }
+        .instagram-shadow {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white p-6 shadow-md">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold"><i class="fa-brands fa-instagram mr-2"></i> Carousel Slicer</h1>
+                <p class="text-sm opacity-90">Upload your wide Canva panorama, preview the swipe, and download slices.</p>
+            </div>
+            <div class="hidden md:block text-xs bg-white/20 px-3 py-1 rounded-full">
+                Supports: JPG, PNG
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-4 md:p-8 space-y-8">
+
+        <!-- Step 1: Upload -->
+        <div class="bg-white rounded-xl p-6 instagram-shadow border border-gray-100">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700">1. Upload Panoramic Image</h2>
+            
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                <div class="w-full md:w-2/3">
+                    <label for="imageInput" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-2"></i>
+                            <p class="mb-1 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500">Wide images recommended (e.g., 3240x1080)</p>
+                        </div>
+                        <input id="imageInput" type="file" class="hidden" accept="image/*" />
+                    </label>
+                </div>
+
+                <div class="w-full md:w-1/3 space-y-3">
+                    <div class="bg-blue-50 text-blue-800 p-3 rounded-lg text-sm">
+                        <p class="font-semibold"><i class="fa-solid fa-ruler-combined mr-1"></i> Dimensions Check:</p>
+                        <p id="dimDisplay" class="mt-1 text-gray-600">No image selected</p>
+                    </div>
+                    <div class="bg-green-50 text-green-800 p-3 rounded-lg text-sm">
+                        <p class="font-semibold"><i class="fa-solid fa-layer-group mr-1"></i> Detected Slides:</p>
+                        <p id="slideCountDisplay" class="mt-1 text-gray-600">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Preview -->
+        <div id="previewSection" class="hidden">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700">2. Preview Swipe Effect</h2>
+            <p class="text-sm text-gray-500 mb-4">This simulates how users will see your post on a phone. Swipe horizontally to test alignment.</p>
+            
+            <div class="flex justify-center bg-gray-200 py-8 rounded-xl border border-gray-300">
+                <!-- Phone Mockup -->
+                <div class="relative w-[300px] h-[600px] bg-black rounded-[3rem] shadow-2xl border-[8px] border-gray-800 overflow-hidden">
+                    <!-- Notch -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20"></div>
+                    
+                    <!-- Instagram UI Header -->
+                    <div class="bg-white h-20 pt-8 px-4 flex items-center justify-between border-b border-gray-100 z-10 relative">
+                        <i class="fa-solid fa-arrow-left text-gray-800"></i>
+                        <span class="font-bold text-gray-800 text-sm">Posts</span>
+                        <i class="fa-solid fa-ellipsis text-gray-800"></i>
+                    </div>
+
+                    <!-- Carousel Container -->
+                    <div id="carouselContainer" class="flex overflow-x-auto snap-x-mandatory no-scrollbar h-[calc(100%-140px)] items-center bg-white relative">
+                        <!-- Slides injected here -->
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            Upload image to preview
+                        </div>
+                    </div>
+
+                    <!-- Instagram UI Footer -->
+                    <div class="absolute bottom-0 w-full h-16 bg-white border-t border-gray-100 flex justify-around items-center text-2xl z-10">
+                        <i class="fa-solid fa-house text-gray-800"></i>
+                        <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                        <i class="fa-regular fa-square-plus text-gray-400"></i>
+                        <i class="fa-regular fa-heart text-gray-400"></i>
+                        <div class="w-6 h-6 bg-gray-300 rounded-full"></div>
+                    </div>
+                    
+                    <!-- Page Indicator overlay -->
+                    <div class="absolute top-24 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded-full z-20">
+                        1/<span id="totalSlidesBadge">1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Download -->
+        <div id="downloadSection" class="hidden bg-white rounded-xl p-6 instagram-shadow border border-gray-100">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700">3. Download Slices</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="downloadGrid">
+                <!-- Download buttons injected here -->
+            </div>
+            
+            <button id="downloadAllBtn" class="mt-6 w-full bg-gray-800 hover:bg-black text-white font-bold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-zipper"></i> Download All Images (Coming Soon - Click individual above)
+            </button>
+            <p class="text-xs text-center text-gray-400 mt-2">*For now, please click individual slice buttons above to save them.</p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p class="mb-2">Instagram Carousel Slicer & Previewer</p>
+            <p class="text-sm text-gray-400">
+                Made with <i class="fa-solid fa-heart text-red-500 mx-1"></i> by <span class="font-bold text-white">NJR</span>
+            </p>
+            <div class="mt-4 text-xs text-gray-500">
+                &copy; <script>document.write(new Date().getFullYear())</script> NJR. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden Canvas for Processing -->
+    <canvas id="processCanvas" class="hidden"></canvas>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const dimDisplay = document.getElementById('dimDisplay');
+        const slideCountDisplay = document.getElementById('slideCountDisplay');
+        const previewSection = document.getElementById('previewSection');
+        const downloadSection = document.getElementById('downloadSection');
+        const carouselContainer = document.getElementById('carouselContainer');
+        const downloadGrid = document.getElementById('downloadGrid');
+        const processCanvas = document.getElementById('processCanvas');
+        const ctx = processCanvas.getContext('2d');
+        const totalSlidesBadge = document.getElementById('totalSlidesBadge');
+
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    processImage(img);
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        function processImage(img) {
+            // Display Dimensions
+            dimDisplay.innerText = `${img.width}px (W) x ${img.height}px (H)`;
+            
+            // Calculate Slides (Assuming standard 1080px width per slide logic, 
+            // but we adapt to the uploaded image's aspect ratio relative to height)
+            // If image is 3240x1080, ratio is 3:1.
+            
+            const standardWidth = 1080;
+            // Determine how many "squares" fit in the width based on height
+            // If height is 1080 (square mode), slide width is 1080.
+            // If height is 1350 (portrait mode), slide width is still 1080.
+            
+            // We assume the user designed based on 1080px widths.
+            // If the image is huge (e.g. 2x resolution), we scale down math to 1080 reference.
+            
+            let scaleFactor = 1;
+            // Find the closest standard height (1080 or 1350) or just use the image height
+            // Logic: A slide is defined by an aspect ratio of 1080 width units.
+            // Let's rely on the Width / Height ratio.
+            // Single Slide Ratio (Square) = 1
+            // Single Slide Ratio (Portrait) = 0.8 (1080/1350)
+            
+            // Let's assume the user uploaded a width that is a multiple of the intended slide width.
+            // But usually, it's easier to just assume height is the anchor.
+            
+            // Standard approach: Cut into equal vertical strips based on 1080px width *relative* to height?
+            // Actually, simpler: Slide Width = Total Width / N. 
+            // But we don't know N.
+            // Let's assume standard Instagram width is 1080px.
+            
+            // Robust approach: 
+            // 1. Calculate aspect ratio. 
+            // 2. If ratio is ~3.0, it's 3 squares. If ratio is ~2.4 (3 * 0.8), it's 3 portraits.
+            
+            // SIMPLER: User usually uploads exactly 1080, 2160, 3240 etc.
+            // Let's verify against standard widths.
+            
+            const possibleSlides = Math.round(img.width / img.height); 
+            // This fails for portrait (1080x1350) because width < height.
+            
+            // Better Logic:
+            // 1 slide width is usually proportional.
+            // Let's try to detect based on standard multiples of 1080.
+            // If image width is 3240, it's likely 3 slides.
+            // If image width is 3000, maybe they didn't export perfectly?
+            
+            // Let's force a 1080px logic if possible, or just ask user? 
+            // Let's auto-detect:
+            // If Height > Width, it's 1 slide.
+            // Else, Number of slides = Width / 1080 (normalized).
+            
+            // Normalizing if they exported at 2x or 0.5x
+            const estimatedSlideCount = Math.round(img.width / (img.height * (1080/1350))); // Try portrait match
+            const estimatedSlideCountSq = Math.round(img.width / img.height); // Try square match
+            
+            // We will default to dividing by Height if it looks square-ish, or specific ratio for portrait.
+            // Actually, best "Surprise" carousels are usually multiples of the height if square, or 0.8*height if portrait.
+            
+            // Let's stick to strict 1080px logic if the image is near that scale, otherwise split by aspect ratio.
+            
+            // Let's just slice into squares (Height x Height) or Portraits?
+            // Most flexible: Slice based on Height? No, portrait slides are narrower than height.
+            
+            // Let's just do: NumSlides = Round(Width / 1080). If image is huge, this fails.
+            // Let's do: NumSlides = Round(Width / (Height * (4/5))) for portrait
+            // or NumSlides = Round(Width / Height) for square.
+            
+            // Heuristic:
+            // Calculate slice count assuming Portrait (4:5)
+            let slideCount = Math.round(img.width / (img.height * 0.8));
+            // Calculate residual error
+            let errorPortrait = Math.abs(img.width - (slideCount * (img.height * 0.8)));
+            
+            // Calculate slice count assuming Square (1:1)
+            let slideCountSq = Math.round(img.width / img.height);
+            let errorSquare = Math.abs(img.width - (slideCountSq * img.height));
+            
+            let finalSlides = 1;
+            let sliceWidth = 0;
+            
+            if (errorSquare < errorPortrait) {
+                // It's likely squares
+                finalSlides = slideCountSq;
+                sliceWidth = img.width / finalSlides;
+                slideCountDisplay.innerText = `${finalSlides} (Square Mode Detected)`;
+            } else {
+                // It's likely portrait
+                finalSlides = slideCount;
+                sliceWidth = img.width / finalSlides;
+                slideCountDisplay.innerText = `${finalSlides} (Portrait Mode Detected)`;
+            }
+            
+            if(finalSlides < 1) finalSlides = 1;
+            totalSlidesBadge.innerText = finalSlides;
+
+            // Generate Slices
+            generateSlices(img, finalSlides, sliceWidth);
+            
+            // Show UI
+            previewSection.classList.remove('hidden');
+            downloadSection.classList.remove('hidden');
+        }
+
+        function generateSlices(img, numSlides, sliceWidth) {
+            carouselContainer.innerHTML = ''; // Clear preview
+            downloadGrid.innerHTML = ''; // Clear downloads
+            
+            // We use the canvas to cut
+            processCanvas.width = sliceWidth;
+            processCanvas.height = img.height;
+            
+            for(let i=0; i<numSlides; i++) {
+                // 1. Draw slice to canvas
+                ctx.clearRect(0, 0, sliceWidth, img.height);
+                // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+                ctx.drawImage(img, i * sliceWidth, 0, sliceWidth, img.height, 0, 0, processCanvas.width, processCanvas.height);
+                
+                // 2. Export to blob/dataURL
+                const dataUrl = processCanvas.toDataURL('image/jpeg', 0.95);
+                
+                // 3. Add to Preview (Phone Mockup)
+                const slideDiv = document.createElement('div');
+                slideDiv.className = "w-[300px] h-auto flex-shrink-0 snap-center border-r border-gray-100 last:border-0";
+                // Scale height to fit container, maintain aspect ratio
+                // Actually, for the phone preview, we want the image to fill the width (300px).
+                const imgPreview = document.createElement('img');
+                imgPreview.src = dataUrl;
+                imgPreview.alt = `Preview of slide ${i+1}`;
+                imgPreview.className = "w-full h-full object-cover block";
+                slideDiv.appendChild(imgPreview);
+                carouselContainer.appendChild(slideDiv);
+                
+                // 4. Add to Download Grid
+                const downloadCard = document.createElement('div');
+                downloadCard.className = "flex flex-col gap-2";
+                
+                const thumb = document.createElement('img');
+                thumb.src = dataUrl;
+                thumb.alt = `Downloadable thumbnail for slide ${i+1}`;
+                thumb.className = "w-full rounded-md shadow-sm border border-gray-200";
+                
+                const btn = document.createElement('a');
+                btn.href = dataUrl;
+                btn.download = `slide_${i+1}.jpg`;
+                btn.className = "bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 px-4 rounded text-center transition-colors";
+                btn.innerText = `Save Slide ${i+1}`;
+                
+                downloadCard.appendChild(thumb);
+                downloadCard.appendChild(btn);
+                downloadGrid.appendChild(downloadCard);
+            }
+        }
+        
+        // Setup Download All placeholder
+        document.getElementById('downloadAllBtn').addEventListener('click', () => {
+             alert("For security reasons in this preview environment, please download slices individually using the buttons above! (Creating a ZIP file requires external libraries).");
+        });
+
+    </script>
+</body>
+</html>
