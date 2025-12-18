@@ -12,10 +12,17 @@ A simple, powerful web tool designed to help creators split wide panoramic image
 
 ## How to Use
 
-1.  **Upload:** Click to upload or drag and drop your panoramic image.
-    *   *Tip: For best results, use images with a height of 1080px or 1350px and a width that is a multiple of 1080px.*
-2.  **Preview:** Check the "Dimensions Check" and "Detected Slides" info. Scroll down to the phone mockup to swipe through your carousel and verify alignment.
-3.  **Download:** (Functionality to be confirmed/added) Download the individual slices.
+### 1. Upload Panoramic Image
+First, upload your wide image. The tool supports drag-and-drop and file selection.
+![Upload Step](11.png)
+
+### 2. Preview Swipe Effect
+Visualize how your post will look on a phone. You can swipe through the carousel to ensure the alignment is perfect.
+![Preview Step](22.png)
+
+### 3. Download Slices
+Once satisfied, download the individual slices. These are perfectly cut and ready to be posted on Instagram in order.
+![Download Step](33.png)
 
 ## Technologies Used
 
@@ -27,3 +34,7 @@ A simple, powerful web tool designed to help creators split wide panoramic image
 ## Setup
 
 No installation required. Simply open `index.html` in any modern web browser.
+
+## Keywords & Topics
+
+`instagram-carousel` `panorama-splitter` `image-slicer` `instagram-tools` `seamless-carousel` `canva-to-instagram` `grid-maker` `web-tool` `javascript` `njr-tools` `open-source`
